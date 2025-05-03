@@ -1,0 +1,19 @@
+Pagaminti klasiu hierarchija.
+yra bazine klase ir kazkiek klasiu kurios ja paveldi bent trys (2 + 1).
+dalykine sritis pasirenkama.
+Pagaminti moduli kuris atlieka kazkoki darba.
+
+Pasakyti ka darys mano projektas ir koks bus kintamas aspektas.
+
+Struktura
+    - 1 .h failas, 3 .cpp failai
+    - demo.cpp kur demonstracija polimorfizmo, virtualaus metodo iskvietimas per 
+    bazines klases rodykle, nieko kito nereikia daryti.
+    - test.cpp darom savo kolegom. Reikia suprojektuoti trecia varianta klases
+    bet be kodo ir test.cpp failo virsuje parasyti kas ten turetu buti ir tam aspektui
+    kurio neigivendinu reikia padaryti testus. Skeleto rasyti klases nereikia!
+    - trecias cpp failas turetu buti apie 50-100 eiluciu
+
+perziureti 11, 12, 13 paskaitas.
+turi realizuoti kazkoki projektavimo sablonas (geriausia decorator, dar strategy neblogai)
+
