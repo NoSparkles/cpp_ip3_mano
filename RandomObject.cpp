@@ -10,19 +10,11 @@ RandomNumber::RandomNumber(RandomNumberStrategy *strategy) {
     this->strategy = strategy;
 }
 
-RandomNumber::~RandomNumber() {
-    //strategy = nullptr;
-}
-
 RandomArray::RandomArray(RandomNumberStrategy* strategy, unsigned size) {
     if (size == 0) {
         throw std::invalid_argument("Klaida: masyvo dydis turi būti didesnis už 0.");
     }
     numbers.reserve(size);
-}
-
-RandomArray::~RandomArray() {
-    //strategy = nullptr;
 }
 
 void RandomNumber::generate() {

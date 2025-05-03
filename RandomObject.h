@@ -29,7 +29,6 @@ class RandomObject {
 protected:
     RandomNumberStrategy* strategy;
 public:
-    virtual ~RandomObject() = default;
     virtual void generate() = 0;
 };
 
@@ -38,7 +37,6 @@ private:
     int number;
 public:
     RandomNumber(RandomNumberStrategy* strategy);
-    ~RandomNumber() override;
     void generate() override;
 };
 
@@ -47,6 +45,5 @@ private:
     std::vector<int> numbers;
 public:
     RandomArray(RandomNumberStrategy* strategy, unsigned size);
-    ~RandomArray() override;
     void generate() override;
 };
