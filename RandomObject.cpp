@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <stdexcept>
+#include <iostream>
 
 RandomNumber::RandomNumber(RandomNumberStrategy *strategy) {
     if (strategy == nullptr) {
@@ -14,8 +15,10 @@ RandomArray::RandomArray(RandomNumberStrategy* strategy, unsigned size) {
     if (size == 0) {
         throw std::invalid_argument("Klaida: masyvo dydis turi būti didesnis už 0.");
     }
-    numbers.reserve(size);
+    numbers.resize(size);
+    this->strategy = strategy;
 }
+
 
 void RandomNumber::generate() {
     if (strategy) {
@@ -27,12 +30,34 @@ void RandomNumber::generate() {
 }
 
 void RandomArray::generate() {
+    if (numbers.empty()) {
+        throw std::invalid_argument("Klaida: masyvas yra tuščias.");
+    }
     if (strategy) {
-        numbers.clear();
         for (unsigned i = 0; i < numbers.size(); ++i) {
-            numbers.push_back(strategy->generateNumber());
+            numbers[i] = strategy->generateNumber();
         }
     }
+}
+
+int RandomNumber::getNumber() const {
+    return number;
+}
+
+std::vector<int> RandomArray::getArray() const {
+    return numbers;
+}
+
+std::string RandomNumber::toString() const {
+    return "RandomNumber: " + std::to_string(number);
+}
+
+std::string RandomArray::toString() const {
+    std::string result = "RandomArray: ";
+    for (const auto& num : numbers) {
+        result += std::to_string(num) + " ";
+    }
+    return result;
 }
 
 IntervalNumberStrategy::IntervalNumberStrategy(int min, int max) : min(min), max(max) {

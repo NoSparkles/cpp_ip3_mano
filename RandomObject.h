@@ -1,11 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 class RandomNumberStrategy {
 public:
-    RandomNumberStrategy() = default;
-    virtual ~RandomNumberStrategy() = default;
     virtual int generateNumber() = 0;
 };
 
@@ -30,6 +29,7 @@ protected:
     RandomNumberStrategy* strategy;
 public:
     virtual void generate() = 0;
+    virtual std::string toString() const = 0;
 };
 
 class RandomNumber : public RandomObject {
@@ -38,6 +38,9 @@ private:
 public:
     RandomNumber(RandomNumberStrategy* strategy);
     void generate() override;
+    std::string toString() const override;
+
+    int getNumber() const;
 };
 
 class RandomArray : public RandomObject {
@@ -46,4 +49,7 @@ private:
 public:
     RandomArray(RandomNumberStrategy* strategy, unsigned size);
     void generate() override;
+    std::string toString() const override;
+
+    std::vector<int> getArray() const;
 };
