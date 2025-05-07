@@ -19,32 +19,29 @@ bool isPrime(int num) {
     return true;
 }
 
-// Testas: ar generuojami skaičiai yra pirminiai?
 void testPrimeNumberGeneration() {
-    IntervalPrimeStrategy strategy(10, 50); // Sukuriame strategiją su intervalu [10, 50]
+    IntervalPrimeStrategy strategy(10, 50);
     for (int i = 0; i < 10; ++i) {
         int num = strategy.generateNumber();
-        assert(isPrime(num) && "Klaida: sugeneruotas skaičius nėra pirminis!");
+        assert(isPrime(num));
     }
     std::cout << "Testas pavyko: visi sugeneruoti skaičiai yra pirminiai.\n";
 }
 
-// Testas: kai intervale nėra pirminių skaičių (pvz., [90, 100])
 void testNoPrimesInInterval() {
     IntervalPrimeStrategy strategy(90, 100);
     int num = strategy.generateNumber();
-    assert(num == -1 && "Klaida: turėjo būti grąžinta -1, nes intervale nėra pirminių skaičių!");
+    assert(num == -1);
     std::cout << "Testas pavyko: intervale nėra pirminių skaičių.\n";
 }
 
-// Testas: kraštutiniai atvejai
 void testEdgeCases() {
-    IntervalPrimeStrategy strategy1(2, 2); // Tik vienas skaičius (2)
+    IntervalPrimeStrategy strategy1(2, 2);
     assert(strategy1.generateNumber() == 2 && "Klaida: turėjo būti grąžintas 2!");
 
-    IntervalPrimeStrategy strategy2(1000, 1100); // Didelis intervalas, reikia surasti pirminį
+    IntervalPrimeStrategy strategy2(1000, 1100);
     int num = strategy2.generateNumber();
-    assert(isPrime(num) && "Klaida: sugeneruotas skaičius nėra pirminis!");
+    assert(isPrime(num));
     
     std::cout << "Testas pavyko: kraštutiniai atvejai veikė teisingai.\n";
 }

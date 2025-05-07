@@ -1,1 +1,0 @@
-RandomObject - strategy šablonas. Bazinės klasės apibrėžia, ar reikia generuoti skaičių ar masyvą, o konkrečios strategijos įgyvendina specifines skaičių generavimo taisykles (Pvz.: tik pirminiai skaičiai, skaičiai iš intervalo ir t.t.).

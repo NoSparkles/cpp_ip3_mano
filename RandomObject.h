@@ -3,26 +3,7 @@
 #include <vector>
 #include <string>
 
-class RandomNumberStrategy {
-public:
-    virtual int generateNumber() = 0;
-};
-
-class IntervalNumberStrategy : public RandomNumberStrategy {
-private:
-    int min, max;
-public:
-    IntervalNumberStrategy(int min, int max);
-    int generateNumber() override;
-};
-
-class MonteCarloStrategy : public RandomNumberStrategy {
-private:
-    int min, max;
-public:
-    MonteCarloStrategy(int min, int max);
-    int generateNumber() override;
-};
+class RandomNumberStrategy; // Forward declaration
 
 class RandomObject {
 protected:
@@ -50,4 +31,25 @@ public:
     void generate() override;
     std::string toString() const override;
     std::vector<int> getArray() const;
+};
+
+class RandomNumberStrategy {
+public:
+    virtual int generateNumber() = 0;
+};
+
+class IntervalNumberStrategy : public RandomNumberStrategy {
+private:
+    int min, max;
+public:
+    IntervalNumberStrategy(int min, int max);
+    int generateNumber() override;
+};
+
+class MonteCarloStrategy : public RandomNumberStrategy {
+private:
+    int min, max;
+public:
+    MonteCarloStrategy(int min, int max);
+    int generateNumber() override;
 };
