@@ -39,7 +39,6 @@ public:
     RandomNumber(RandomNumberStrategy* strategy);
     void generate() override;
     std::string toString() const override;
-
     int getNumber() const;
 };
 
@@ -50,6 +49,5 @@ public:
     RandomArray(RandomNumberStrategy* strategy, unsigned size);
     void generate() override;
     std::string toString() const override;
-
     std::vector<int> getArray() const;
 };

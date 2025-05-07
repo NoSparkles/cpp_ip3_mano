@@ -6,50 +6,49 @@
 
 RandomNumber::RandomNumber(RandomNumberStrategy *strategy) {
     if (strategy == nullptr) {
-        throw std::invalid_argument("Klaida: strategija negali būti nullptr.");
+        throw std::invalid_argument("Strategy cannot be nullptr.");
     }
     this->strategy = strategy;
 }
-
-RandomArray::RandomArray(RandomNumberStrategy* strategy, unsigned size) {
-    if (size == 0) {
-        throw std::invalid_argument("Klaida: masyvo dydis turi būti didesnis už 0.");
-    }
-    numbers.resize(size);
-    this->strategy = strategy;
-}
-
 
 void RandomNumber::generate() {
-    if (strategy) {
-        number = strategy->generateNumber();
+    if (this->strategy) {
+        this->number = this->strategy->generateNumber();
     }
     else {
-        number = 0;
-    }
-}
-
-void RandomArray::generate() {
-    if (numbers.empty()) {
-        throw std::invalid_argument("Klaida: masyvas yra tuščias.");
-    }
-    if (strategy) {
-        for (unsigned i = 0; i < numbers.size(); ++i) {
-            numbers[i] = strategy->generateNumber();
-        }
+        this->number = 0;
     }
 }
 
 int RandomNumber::getNumber() const {
-    return number;
+    return this->number;
+}
+
+std::string RandomNumber::toString() const {
+    return "RandomNumber: " + std::to_string(this->number);
+}
+
+RandomArray::RandomArray(RandomNumberStrategy* strategy, unsigned size) {
+    if (size == 0) {
+        throw std::invalid_argument("Array size must be greater than 0.");
+    }
+    this->numbers.resize(size);
+    this->strategy = strategy;
+}
+
+void RandomArray::generate() {
+    if (this->numbers.empty()) {
+        throw std::invalid_argument("Array is empty. Cannot generate numbers.");
+    }
+    if (this->strategy) {
+        for (unsigned i = 0; i < this->numbers.size(); ++i) {
+            this->numbers[i] = this->strategy->generateNumber();
+        }
+    }
 }
 
 std::vector<int> RandomArray::getArray() const {
     return numbers;
-}
-
-std::string RandomNumber::toString() const {
-    return "RandomNumber: " + std::to_string(number);
 }
 
 std::string RandomArray::toString() const {
@@ -60,20 +59,24 @@ std::string RandomArray::toString() const {
     return result;
 }
 
-IntervalNumberStrategy::IntervalNumberStrategy(int min, int max) : min(min), max(max) {
+IntervalNumberStrategy::IntervalNumberStrategy(int min, int max) {
     if (min >= max) {
-        throw std::invalid_argument("Klaida: min turi būti mažesnis už max.");
+        throw std::invalid_argument("min should be less than max.");
     }
+    this->min = min;
+    this->max = max;
 }
 
 int IntervalNumberStrategy::generateNumber() {
     return rand() % (max - min + 1) + min;
 }
 
-MonteCarloStrategy::MonteCarloStrategy(int min, int max) : min(min), max(max) {
+MonteCarloStrategy::MonteCarloStrategy(int min, int max) {
     if (min >= max) {
-        throw std::invalid_argument("Klaida: min turi būti mažesnis už max.");
+        throw std::invalid_argument("min should be less than max.");
     }
+    this->min = min;
+    this->max = max;
 }
 
 int MonteCarloStrategy::generateNumber() {
@@ -82,7 +85,7 @@ int MonteCarloStrategy::generateNumber() {
     int generatedNumber = 0;
 
     for (int i = 0; i < iterations; ++i) {
-        int candidate = rand() % (max - min + 1) + min;
+        int candidate = rand() % (this->max - this->min + 1) + this->min;
         double probability = static_cast<double>(rand()) / RAND_MAX;
 
         if (probability < 0.5) { 
@@ -91,6 +94,6 @@ int MonteCarloStrategy::generateNumber() {
         }
     }
 
-    if (acceptedNumbers == 0) return min;
+    if (acceptedNumbers == 0) return this->min;
     return generatedNumber;
 }
