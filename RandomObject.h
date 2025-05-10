@@ -8,8 +8,10 @@ class RandomNumberStrategy; // Forward declaration
 class RandomObject {
 protected:
     RandomNumberStrategy* strategy;
+    int type;
 public:
     virtual void generate() = 0;
+    int getType() const;
     virtual std::string toString() const = 0;
 };
 
@@ -17,6 +19,8 @@ class RandomNumber : public RandomObject {
 private:
     int number;
 public:
+    const static int TYPE = 0;
+
     RandomNumber(RandomNumberStrategy* strategy);
     void generate() override;
     std::string toString() const override;
@@ -27,6 +31,8 @@ class RandomArray : public RandomObject {
 private:
     std::vector<int> numbers;
 public:
+    const static int TYPE = 1;
+
     RandomArray(RandomNumberStrategy* strategy, unsigned size);
     void generate() override;
     std::string toString() const override;
@@ -34,21 +40,19 @@ public:
 };
 
 class RandomNumberStrategy {
+protected:
+    int min, max;
 public:
     virtual int generateNumber() = 0;
 };
 
 class IntervalNumberStrategy : public RandomNumberStrategy {
-private:
-    int min, max;
 public:
     IntervalNumberStrategy(int min, int max);
     int generateNumber() override;
 };
 
 class MonteCarloStrategy : public RandomNumberStrategy {
-private:
-    int min, max;
 public:
     MonteCarloStrategy(int min, int max);
     int generateNumber() override;

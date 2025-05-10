@@ -4,11 +4,16 @@
 #include <stdexcept>
 #include <iostream>
 
+int RandomObject::getType() const {
+    return this->type;
+}
+
 RandomNumber::RandomNumber(RandomNumberStrategy *strategy) {
     if (strategy == nullptr) {
         throw std::invalid_argument("Strategy cannot be nullptr.");
     }
     this->strategy = strategy;
+    this->type = RandomNumber::TYPE;
 }
 
 void RandomNumber::generate() {
@@ -34,6 +39,7 @@ RandomArray::RandomArray(RandomNumberStrategy* strategy, unsigned size) {
     }
     this->numbers.resize(size);
     this->strategy = strategy;
+    this->type = RandomArray::TYPE;
 }
 
 void RandomArray::generate() {
