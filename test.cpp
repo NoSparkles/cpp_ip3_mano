@@ -20,7 +20,7 @@ bool isPrime(int num) {
 }
 
 void testPrimeNumberGeneration() {
-    IntervalPrimeStrategy strategy(10, 50);
+    IntervalPrimeStrategy strategy(10, 50, 12345);
     for (int i = 0; i < 10; ++i) {
         int num = strategy.generateNumber();
         assert(isPrime(num));
@@ -29,17 +29,17 @@ void testPrimeNumberGeneration() {
 }
 
 void testNoPrimesInInterval() {
-    IntervalPrimeStrategy strategy(90, 100);
+    IntervalPrimeStrategy strategy(90, 100, 12345);
     int num = strategy.generateNumber();
     assert(num == -1);
     std::cout << "Testas pavyko: intervale nėra pirminių skaičių.\n";
 }
 
 void testEdgeCases() {
-    IntervalPrimeStrategy strategy1(2, 2);
+    IntervalPrimeStrategy strategy1(2, 2, 12345);
     assert(strategy1.generateNumber() == 2 && "Klaida: turėjo būti grąžintas 2!");
 
-    IntervalPrimeStrategy strategy2(1000, 1100);
+    IntervalPrimeStrategy strategy2(1000, 1100, 12345);
     int num = strategy2.generateNumber();
     assert(isPrime(num));
     
