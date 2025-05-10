@@ -25,12 +25,16 @@ void RandomNumber::generate() {
     }
 }
 
-int RandomNumber::getNumber() const {
-    return this->number;
+void *RandomNumber::get() {
+    return &this->number;
 }
 
 std::string RandomNumber::toString() const {
     return "RandomNumber: " + std::to_string(this->number);
+}
+
+int RandomNumber::getNumber() const {
+    return this->number;
 }
 
 RandomArray::RandomArray(RandomNumberStrategy* strategy, unsigned size) {
@@ -53,8 +57,8 @@ void RandomArray::generate() {
     }
 }
 
-std::vector<int> RandomArray::getArray() const {
-    return numbers;
+void *RandomArray::get() {
+    return &numbers;
 }
 
 std::string RandomArray::toString() const {
@@ -65,25 +69,26 @@ std::string RandomArray::toString() const {
     return result;
 }
 
-IntervalNumberStrategy::IntervalNumberStrategy(int min, int max) {
+std::vector<int> RandomArray::getArray() const {
+    return this->numbers;
+}
+
+RandomNumberStrategy::RandomNumberStrategy(int min, int max, unsigned seed) {
+    srand(seed);
     if (min >= max) {
         throw std::invalid_argument("min should be less than max.");
     }
     this->min = min;
     this->max = max;
 }
+
+IntervalNumberStrategy::IntervalNumberStrategy(int min, int max, unsigned seed) : RandomNumberStrategy(min, max, seed) {}
 
 int IntervalNumberStrategy::generateNumber() {
     return rand() % (max - min + 1) + min;
 }
 
-MonteCarloStrategy::MonteCarloStrategy(int min, int max) {
-    if (min >= max) {
-        throw std::invalid_argument("min should be less than max.");
-    }
-    this->min = min;
-    this->max = max;
-}
+MonteCarloStrategy::MonteCarloStrategy(int min, int max, unsigned seed) : RandomNumberStrategy(min, max, seed) {}
 
 int MonteCarloStrategy::generateNumber() {
     int iterations = 100;
